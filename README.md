@@ -60,7 +60,7 @@ This is an example config for the Hyperbrowser MCP server for the Claude Desktop
       "command": "npx",
       "args": ["hyperbrowser-mcp"],
       "env": {
-        "HB_API_KEY": "your-api-key" // or set the environment variable in the prompt itself
+        "HB_API_KEY": "your-api-key" // or set the param in the prompt itself
       }
     }
   }
