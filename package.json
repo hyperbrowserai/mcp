@@ -1,10 +1,10 @@
 {
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Hyperbrowser Model Context Protocol Server",
   "name": "hyperbrowser-test-mcp",
-  "main": "dist/server.js",
+  "main": "./dist/server.js",
   "bin": {
-    "hyperbrowser-test-mcp": "dist/server.js"
+    "hyperbrowser-test-mcp": "./dist/server.js"
   },
   "files": [
     "dist"
@@ -44,6 +44,8 @@
     "url": "https://github.com/hyperbrowserai/mcp/issues"
   },
   "homepage": "https://github.com/hyperbrowserai/mcp#readme",
-  "author": "",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "license": "ISC"
 }
