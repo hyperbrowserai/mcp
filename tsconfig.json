@@ -3,12 +3,14 @@
     "target": "ES2022",
     "module": "Node16",
     "moduleResolution": "node16",
-    "outDir": "./build",
+    "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "declarationMap": true
   },
   "include": [
     "src/**/*.ts"

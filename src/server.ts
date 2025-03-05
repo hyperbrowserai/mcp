@@ -19,11 +19,12 @@ const server = new McpServer({
 
 const sessionOptionsSchema = z
   .object({
-    useProxy: z.boolean().default(true).describe("Whether to use a proxy"),
-    useStealth: z.boolean().describe("Whether to use stealth mode."),
-    solveCaptchas: z.boolean().describe("Whether to solve captchas."),
+    useProxy: z.boolean().default(false).describe("Whether to use a proxy"),
+    useStealth: z.boolean().default(false).describe("Whether to use stealth mode."),
+    solveCaptchas: z.boolean().default(false).describe("Whether to solve captchas."),
     acceptCookies: z
       .boolean()
+      .default(false)
       .describe("Whether to automatically close the accept cookies popup"),
   })
   .optional()
@@ -125,7 +126,7 @@ server.tool(
       if (!imageData) {
         response.content.push({
           type: "text",
-          text: "Failed to download screenshot",
+          text: "Failed to get screenshot",
         });
         response.isError = true;
       } else {
