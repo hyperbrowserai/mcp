@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { z } from "zod";
 import { Ajv } from "ajv";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";

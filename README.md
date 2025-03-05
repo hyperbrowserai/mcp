@@ -20,6 +20,16 @@ More information about the Model Context Protocol can be found [here](https://mo
 
 ## Installation
 
+To install the server, run:
+
+```bash
+npx hyperbrowser-mcp
+```
+
+### Development
+
+For development purposes, you can run the server directly from the source code.
+
 1. Clone the repository:
 
    ```sh
@@ -30,17 +40,14 @@ More information about the Model Context Protocol can be found [here](https://mo
 2. Install dependencies:
    ```sh
    npm install # or yarn install
+   npm run build
    ```
 
-## Usage
+3. Run the server:
 
-To build the server, run:
-
-```sh
-npm run build # or yarn build
-```
-
-To use the server, configure the service in your MCP client. An example config would be
+   ```sh
+   node dist/server.js
+   ```
 
 ### Example config
 
@@ -50,8 +57,8 @@ This is an example config for the Hyperbrowser MCP server for the Claude Desktop
 {
   "mcpServers": {
     "hyperbrowser": {
-      "command": "node",
-      "args": ["/path/to/hyperbrowser-mcp/build/server.js"],
+      "command": "npx",
+      "args": ["hyperbrowser-mcp"],
       "env": {
         "HB_API_KEY": "your-api-key" // or set the environment variable in the prompt itself
       }
@@ -72,6 +79,8 @@ Other client (such as Cursor) do not support the `env` field in the config or as
   }
 }
 ```
+
+If for some reason you can't provide the API key in the config or in a shell script, you can set it within whatever prompt you are using. It will be upto the mcp client to pass it to the server.
 
 ## Tools
 

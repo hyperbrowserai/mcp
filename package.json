@@ -1,10 +1,10 @@
 {
-  "version": "1.0.5",
+  "version": "1.0.0",
   "description": "Hyperbrowser Model Context Protocol Server",
-  "name": "hyperbrowser-test-mcp",
+  "name": "hyperbrowser-mcp",
   "main": "./dist/server.js",
   "bin": {
-    "hyperbrowser-test-mcp": "./dist/server.js"
+    "hyperbrowser-mcp": "./dist/server.js"
   },
   "files": [
     "dist"
