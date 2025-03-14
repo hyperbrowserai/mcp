@@ -14,7 +14,7 @@
   },
   "scripts": {
     "build": "tsc && node -e \"require('fs').chmodSync('dist/server.js', '755')\"",
-    "start": "node dist/index.js",
+    "start": "node dist/server.js",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",
     "format": "prettier --write ."
@@ -22,9 +22,11 @@
   "dependencies": {
     "@hyperbrowser/sdk": "^0.34.0",
     "@modelcontextprotocol/sdk": "^1.6.0",
-    "ajv": "^8.17.1"
+    "ajv": "^8.17.1",
+    "express": "^4.21.2"
   },
   "devDependencies": {
+    "@types/express": "^5.0.0",
     "@types/node": "^16.11.7",
     "typescript": "^4.5.2"
   },
