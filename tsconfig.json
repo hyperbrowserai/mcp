@@ -18,6 +18,7 @@
     "src/resources/static/data/summarized.json"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "src/resources/dynamic/**"
   ]
 }
