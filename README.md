@@ -1,4 +1,5 @@
 # Hyperbrowser MCP Server
+[![smithery badge](https://smithery.ai/badge/@hyperbrowserai/mcp)](https://smithery.ai/server/@hyperbrowserai/mcp)
 
 This project is a server implementation for the Hyperbrowser using the Model Context Protocol (MCP). The server provides various tools to scrape, extract structured data, and crawl webpages.
 
@@ -20,6 +21,15 @@ More information about the Model Context Protocol can be found [here](https://mo
 
 ## Installation
 
+### Installing via Smithery
+
+To install Hyperbrowser MCP Server for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@hyperbrowserai/mcp):
+
+```bash
+npx -y @smithery/cli install @hyperbrowserai/mcp --client claude
+```
+
+### Manual Installation
 To install the server, run:
 
 ```bash
