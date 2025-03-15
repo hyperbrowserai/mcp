@@ -26,6 +26,14 @@ import {
   extractStructuredDataToolParamSchemaRaw,
   scrapeWebpageToolParamSchemaRaw,
 } from "../tools/tool-types";
+import {
+  ListResourcesRequestSchema,
+  ReadResourceRequestSchema,
+} from "@modelcontextprotocol/sdk/types.js";
+import {
+  listAllResources,
+  getResource,
+} from "../resources/static/get_resources";
 
 function setupServer(server: McpServer) {
   server.tool(
@@ -53,12 +61,8 @@ function setupServer(server: McpServer) {
     browserUseTool
   );
 
-  server.tool("test", async () => {
-    await new Promise((resolve) => setTimeout(resolve, 10_000));
-    return {
-      content: [{ type: "text", text: "Hello, world!" }],
-    };
-  });
+  server.server.setRequestHandler(ListResourcesRequestSchema, listAllResources);
+  server.server.setRequestHandler(ReadResourceRequestSchema, getResource);
 }
 
 export default setupServer;

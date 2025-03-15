@@ -1,6 +1,7 @@
 import express from "express";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
+import { requireBearerAuth } from "@modelcontextprotocol/sdk/server/auth/middleware/bearerAuth.js";
 
 import { NAME, VERSION } from "../common";
 import setupServer from "./setup_server";
@@ -26,10 +27,17 @@ function setupSSE(app: express.Application, server: McpServer) {
 
 export async function createSSEServer() {
   const app = express();
-  const server = new McpServer({
-    name: NAME,
-    version: VERSION,
-  });
+  const server = new McpServer(
+    {
+      name: NAME,
+      version: VERSION,
+    },
+    {
+      capabilities: {
+        resources: {},
+      },
+    }
+  );
 
   setupSSE(app, server);
 

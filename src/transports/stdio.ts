@@ -15,10 +15,17 @@ async function setupSSE(server: McpServer) {
 }
 
 export async function createStdioServer() {
-  const server = new McpServer({
-    name: NAME,
-    version: VERSION,
-  });
+  const server = new McpServer(
+    {
+      name: NAME,
+      version: VERSION,
+    },
+    {
+      capabilities: {
+        resources: {},
+      },
+    }
+  );
 
   setupSSE(server);
 }
