@@ -14,12 +14,6 @@ type ResourceResponse = {
   mimeType: "text/markdown";
 };
 
-// const urlToDataMap: Array<{
-//   pathname: string;
-//   data: CrawledPage;
-//   summary: string;
-// }> = JSON.parse(fs.readFileSync("src/data/summarized.json", "utf8"));
-
 const getPathname = (url: string) => {
   return new URL(url).pathname ?? "/";
 };
@@ -37,7 +31,7 @@ export async function getResource(
 
     let pathname = getPathname(uri);
     const resource = urlToDataMap.find((item) => item.pathname === pathname);
-    
+
     if (!(resource && resource.data.markdown)) {
       throw new Error(`Resource not found: ${uri}`);
     } else {
