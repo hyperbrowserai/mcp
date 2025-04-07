@@ -1,19 +1,23 @@
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import { getClient } from "../utils";
+// Import helper
+import { getClient, prepareSessionOptions } from "../utils";
 import { oaiCuaToolParamSchemaType } from "./tool-types";
 
 export async function oaiCuaTool({
   task,
-  sessionOptions,
+  sessionOptions: inputSessionOptions,
   returnStepInfo,
   maxSteps,
 }: oaiCuaToolParamSchemaType): Promise<CallToolResult> {
   try {
     const client = await getClient();
 
+    // Use helper
+    const finalSessionOptions = prepareSessionOptions(inputSessionOptions);
+
     const result = await client.agents.cua.startAndWait({
       task,
-      sessionOptions,
+      sessionOptions: finalSessionOptions, // Pass options from helper
       maxSteps,
     });
 

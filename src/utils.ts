@@ -1,5 +1,6 @@
 import { config } from "dotenv";
 import { Hyperbrowser } from "@hyperbrowser/sdk";
+import { CreateSessionParams } from "@hyperbrowser/sdk/types";
 
 config();
 
@@ -69,4 +70,46 @@ export const downloadImageAsBase64 = async (
     });
     return null;
   }
+};
+
+// Define a type for the input options coming from MCP tools (includes profileId)
+// We extend the SDK type but add profileId and remove the nested profile
+type McpSessionOptions = Omit<CreateSessionParams, 'profile'> & {
+  profileId?: string;
+};
+
+
+/**
+ * Prepares session options for the Hyperbrowser SDK, handling the profileId.
+ * Uses types directly from the @hyperbrowser/sdk.
+ * @param inputOptions The session options received from the MCP tool input (McpSessionOptions).
+ * @param defaults Optional default options specific to the tool calling this function.
+ * @returns Session options formatted for the Hyperbrowser SDK (CreateSessionParams).
+ */
+export const prepareSessionOptions = (
+  inputOptions: McpSessionOptions | undefined | null,
+  defaults: Partial<CreateSessionParams> = {}
+): CreateSessionParams => {
+  // Start with defaults, then merge input options
+  // Ensure correct typing for the intermediate object before profileId is deleted
+  const intermediateOptions: McpSessionOptions = {
+    ...defaults,
+    ...(inputOptions || {}),
+  };
+
+  // Prepare the final options object conforming to CreateSessionParams
+  const finalOptions: CreateSessionParams = { ...intermediateOptions };
+
+  // Handle profileId if present
+  if (intermediateOptions?.profileId) {
+    finalOptions.profile = { // Add the nested profile object expected by SDK
+      id: intermediateOptions.profileId,
+      persistChanges: true, // Always persist changes when using a profile
+    };
+  }
+
+  // Remove profileId from the final object as it's not part of CreateSessionParams
+  delete (finalOptions as any).profileId; // Use type assertion to allow deletion
+
+  return finalOptions;
 };

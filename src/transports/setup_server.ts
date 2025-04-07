@@ -51,8 +51,31 @@ import {
   bingSearchToolDescription,
   bingSearchToolName,
 } from "../tools/bing-search";
+// Import new profile tools
+import {
+  createProfileTool,
+  createProfileToolDescription,
+  createProfileToolName,
+} from "../tools/create-profile";
+import {
+  deleteProfileTool,
+  deleteProfileToolDescription,
+  deleteProfileToolName,
+} from "../tools/delete-profile";
+import {
+  listProfilesTool,
+  listProfilesToolDescription,
+  listProfilesToolName,
+} from "../tools/list-profiles";
+// Import new profile tool schemas (create schema is empty object)
+import {
+  deleteProfileToolParamSchemaRaw,
+  listProfilesToolParamSchemaRaw,
+} from "../tools/tool-types";
+
 
 function setupServer(server: McpServer) {
+  // Existing tools
   server.tool(
     scrapeWebpageToolName,
     scrapeWebpageToolDescription,
@@ -97,6 +120,27 @@ function setupServer(server: McpServer) {
     bingSearchToolParamSchemaRaw,
     bingSearchTool
   );
+
+  // Register new profile tools
+  server.tool(
+    createProfileToolName,
+    createProfileToolDescription,
+    {}, // createProfileToolParamSchemaRaw is just an empty object
+    createProfileTool
+  );
+  server.tool(
+    deleteProfileToolName,
+    deleteProfileToolDescription,
+    deleteProfileToolParamSchemaRaw,
+    deleteProfileTool
+  );
+  server.tool(
+    listProfilesToolName,
+    listProfilesToolDescription,
+    listProfilesToolParamSchemaRaw,
+    listProfilesTool
+  );
+
 
   server.server.setRequestHandler(ListResourcesRequestSchema, listAllResources);
   server.server.setRequestHandler(ReadResourceRequestSchema, getResource);

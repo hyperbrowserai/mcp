@@ -1,18 +1,22 @@
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import { getClient, downloadImageAsBase64 } from "../utils";
+// Import the new helper function
+import { getClient, downloadImageAsBase64, prepareSessionOptions } from "../utils";
 import { scrapeWebpageToolParamSchemaType } from "./tool-types";
 
 export async function scrapeWebpageTool({
   url,
-  sessionOptions,
+  sessionOptions: inputSessionOptions,
   outputFormat,
 }: scrapeWebpageToolParamSchemaType): Promise<CallToolResult> {
   try {
     const client = await getClient();
 
+    // Use the helper function to prepare options
+    const finalSessionOptions = prepareSessionOptions(inputSessionOptions);
+
     const result = await client.scrape.startAndWait({
       url,
-      sessionOptions,
+      sessionOptions: finalSessionOptions, // Pass options from helper
       scrapeOptions: {
         formats: outputFormat,
       },

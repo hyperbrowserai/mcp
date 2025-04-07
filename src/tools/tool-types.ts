@@ -26,6 +26,11 @@ export const sessionOptionsSchema = z
       .describe(
         "Whether to automatically close the accept cookies popup. Recommended false."
       ),
+    // Add profileId here
+    profileId: z
+      .string()
+      .optional()
+      .describe("Optional Hyperbrowser profile ID to use for the session"),
   })
   .optional()
   .describe(
@@ -243,4 +248,33 @@ export const bingSearchToolParamSchema = z.object(bingSearchToolParamSchemaRaw);
 
 export type BingSearchToolParamSchemaType = z.infer<
   typeof bingSearchToolParamSchema
+>;
+
+// Delete Profile
+
+export const deleteProfileToolParamSchemaRaw = {
+  profileId: z.string().describe("ID of the profile to delete"),
+};
+
+export const deleteProfileToolParamSchema = z.object(
+  deleteProfileToolParamSchemaRaw
+);
+
+export type deleteProfileToolParamSchemaType = z.infer<
+  typeof deleteProfileToolParamSchema
+>;
+
+// List Profiles
+
+export const listProfilesToolParamSchemaRaw = {
+  page: z.number().int().positive().optional().describe("Page number for pagination (optional)"),
+  limit: z.number().int().positive().optional().describe("Number of profiles per page (optional)"),
+};
+
+export const listProfilesToolParamSchema = z.object(
+  listProfilesToolParamSchemaRaw
+);
+
+export type listProfilesToolParamSchemaType = z.infer<
+  typeof listProfilesToolParamSchema
 >;
