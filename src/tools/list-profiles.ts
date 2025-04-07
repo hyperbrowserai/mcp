@@ -45,6 +45,6 @@ export async function listProfilesTool(
 }
 
 // Export name and description separately for registration
-export const listProfilesToolName = 'list_hyperbrowser_profiles';
+export const listProfilesToolName = 'list_profiles';
 export const listProfilesToolDescription =
   'Lists existing persistent Hyperbrowser profiles, with optional pagination.';

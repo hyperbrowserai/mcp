@@ -42,6 +42,6 @@ export async function createProfileTool(
 }
 
 // Export name and description separately for registration
-export const createProfileToolName = 'create_hyperbrowser_profile';
+export const createProfileToolName = 'create_profile';
 export const createProfileToolDescription =
   'Creates a new persistent Hyperbrowser profile.';

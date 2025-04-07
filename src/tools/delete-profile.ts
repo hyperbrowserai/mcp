@@ -51,6 +51,6 @@ export async function deleteProfileTool(
 }
 
 // Export name and description separately for registration
-export const deleteProfileToolName = 'delete_hyperbrowser_profile';
+export const deleteProfileToolName = 'delete_profile';
 export const deleteProfileToolDescription =
   'Deletes an existing persistent Hyperbrowser profile.';
