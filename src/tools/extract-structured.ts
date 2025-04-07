@@ -1,23 +1,18 @@
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-// Import helper
-import { getClient, prepareSessionOptions } from "../utils";
+import { getClient } from "../utils";
 import { extractStructuredDataToolParamSchemaType } from "./tool-types";
 
 export async function extractStructuredDataTool({
   urls,
-  sessionOptions: inputSessionOptions,
+  sessionOptions,
   prompt,
   schema,
 }: extractStructuredDataToolParamSchemaType): Promise<CallToolResult> {
   try {
     const client = await getClient();
-
-    // Use helper
-    const finalSessionOptions = prepareSessionOptions(inputSessionOptions);
-
     const params = {
       urls,
-      sessionOptions: finalSessionOptions, // Pass options from helper
+      sessionOptions,
       prompt,
       schema,
     };

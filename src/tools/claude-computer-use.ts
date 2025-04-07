@@ -1,23 +1,19 @@
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-// Import helper
-import { getClient, prepareSessionOptions } from "../utils";
+import { getClient } from "../utils";
 import { ClaudeComputerUseToolParamSchemaType } from "./tool-types";
 
 export async function claudeComputerUseTool({
   task,
-  sessionOptions: inputSessionOptions,
+  sessionOptions,
   returnStepInfo,
   maxSteps,
 }: ClaudeComputerUseToolParamSchemaType): Promise<CallToolResult> {
   try {
     const client = await getClient();
 
-    // Use helper
-    const finalSessionOptions = prepareSessionOptions(inputSessionOptions);
-
     const result = await client.agents.claudeComputerUse.startAndWait({
       task,
-      sessionOptions: finalSessionOptions, // Pass options from helper
+      sessionOptions,
       maxSteps,
     });
 

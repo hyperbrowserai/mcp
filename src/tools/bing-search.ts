@@ -1,8 +1,7 @@
 import { z } from "zod";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 
-// Import helper
-import { getClient, prepareSessionOptions } from "../utils";
+import { getClient } from "../utils";
 import { BingSearchToolParamSchemaType } from "./tool-types";
 
 const searchResultSchema = z.object({
@@ -18,22 +17,16 @@ const searchResultsSchema = z.object({
 export async function bingSearchTool({
   query,
   numResults,
-  sessionOptions: inputSessionOptions, // Rename input
+  sessionOptions,
 }: BingSearchToolParamSchemaType): Promise<CallToolResult> {
   try {
     const client = await getClient();
-
-    // Use helper, passing tool-specific defaults
-    const finalSessionOptions = prepareSessionOptions(inputSessionOptions, {
-      adblock: true,
-      useProxy: false,
-    });
 
     const encodedUrl = encodeURI(`https://www.bing.com/search?q=${query}`);
 
     const result = await client.extract.startAndWait({
       urls: [encodedUrl],
-      sessionOptions: finalSessionOptions, // Pass processed options
+      sessionOptions: { ...sessionOptions, adblock: true, useProxy: false },
       prompt: `Extract the top ${numResults} search results from this page.`,
       schema: searchResultsSchema,
     });

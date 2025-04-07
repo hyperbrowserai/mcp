@@ -26,12 +26,23 @@ export const sessionOptionsSchema = z
       .describe(
         "Whether to automatically close the accept cookies popup. Recommended false."
       ),
-    // Add profileId here
-    profileId: z
-      .string()
+    profile: z
+      .object({
+        id: z
+          .string()
+          .optional()
+          .describe("ID of the persistent profile to use for the session"),
+        persistChanges: z
+          .boolean()
+          .optional()
+          .describe(
+            "Whether changes made during the session should be saved to the profile"
+          ),
+      })
       .optional()
-      .describe("Optional Hyperbrowser profile ID to use for the session"),
+      .describe("Options for using a persistent Hyperbrowser profile"),
   })
+  .strict() // Ensure no unknown keys are passed
   .optional()
   .describe(
     "Options for the browser session. Avoid setting these if not mentioned explicitly"

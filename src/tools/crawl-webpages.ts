@@ -1,25 +1,21 @@
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-// Import helper
-import { getClient, prepareSessionOptions } from "../utils";
+import { getClient } from "../utils";
 import { crawlWebpagesToolParamSchemaType } from "./tool-types";
 
 export async function crawlWebpagesTool({
   url,
-  sessionOptions: inputSessionOptions,
+  sessionOptions,
   outputFormat,
+  ignoreSitemap,
   followLinks,
   maxPages,
-  ignoreSitemap,
 }: crawlWebpagesToolParamSchemaType): Promise<CallToolResult> {
   try {
     const client = await getClient();
 
-    // Use helper
-    const finalSessionOptions = prepareSessionOptions(inputSessionOptions);
-
     const result = await client.crawl.startAndWait({
       url,
-      sessionOptions: finalSessionOptions, // Pass options from helper
+      sessionOptions,
       scrapeOptions: {
         formats: outputFormat,
       },
