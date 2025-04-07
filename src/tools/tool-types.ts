@@ -34,9 +34,9 @@ export const sessionOptionsSchema = z
           .describe("ID of the persistent profile to use for the session"),
         persistChanges: z
           .boolean()
-          .optional()
+          .default(true)
           .describe(
-            "Whether changes made during the session should be saved to the profile"
+            "Whether changes made during the session should be saved to the profile. Recommended true."
           ),
       })
       .optional()
