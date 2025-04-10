@@ -108,6 +108,9 @@ This is an example config for the Hyperbrowser MCP server for the Claude Desktop
 * `browser_use_agent` - Fast, lightweight browser automation with the Browser Use agent
 * `openai_computer_use_agent` - General-purpose automation using OpenAI’s CUA model
 * `claude_computer_use_agent` - Complex browser tasks using Claude computer use
+* `create_profile` - Creates a new persistent Hyperbrowser profile.
+* `delete_profile` - Deletes an existing persistent Hyperbrowser profile.
+* `list_profiles` - Lists existing persistent Hyperbrowser profiles.
 
 ### Installing via Smithery
 
