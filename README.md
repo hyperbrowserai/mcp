@@ -1,6 +1,10 @@
 # Hyperbrowser MCP Server
 [![smithery badge](https://smithery.ai/badge/@hyperbrowserai/mcp)](https://smithery.ai/server/@hyperbrowserai/mcp)
 
+<a href="https://glama.ai/mcp/servers/@hyperbrowserai/mcp">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@hyperbrowserai/mcp/badge" alt="Hyperbrowser MCP server" />
+</a>
+
 ![Frame 5](https://github.com/user-attachments/assets/3309a367-e94b-418a-a047-1bf1ad549c0a)
 
 This is Hyperbrowser's Model Context Protocol (MCP) Server. It provides various tools to scrape, extract structured data, and crawl webpages. It also provides easy access to general purpose browser agents like OpenAI's CUA, Anthropic's Claude Computer Use, and Browser Use.
