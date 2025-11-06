@@ -238,6 +238,36 @@ export type ClaudeComputerUseToolParamSchemaType = z.infer<
   typeof claudeComputerUseToolParamSchema
 >;
 
+// Hyper Agent
+
+export const hyperAgentToolParamSchemaRaw = {
+  task: z.string().describe("The task to perform inside the browser"),
+  sessionOptions: sessionOptionsSchema,
+  returnStepInfo: z
+    .boolean()
+    .default(false)
+    .describe(
+      "Whether to return step-by-step information about the task.Should be false by default. May contain excessive information, so we strongly recommend setting this to false."
+    ),
+  maxSteps: z
+    .number()
+    .int()
+    .positive()
+    .finite()
+    .safe()
+    .min(1)
+    .max(100)
+    .default(25),
+};
+
+export const hyperAgentToolParamSchema = z.object(
+  hyperAgentToolParamSchemaRaw
+);
+
+export type hyperAgentToolParamSchemaType = z.infer<
+  typeof hyperAgentToolParamSchema
+>;
+
 // Bing search
 
 // Scrape Webpage

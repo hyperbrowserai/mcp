@@ -1,0 +1,14 @@
+{
+  "_comment": "Copy this file to postgres_connection.json.local and fill in your actual values",
+  "_note": "All values should come from environment variables - never hardcode credentials",
+  "connection": {
+    "host": "${DB_HOST}",
+    "port": "${DB_PORT}",
+    "database": "${DB_NAME}",
+    "schema": "${DB_SCHEMA:-public}",
+    "username": "${DB_USER}",
+    "password": "${DB_PASSWORD}",
+    "ssl": false
+  },
+  "connection_string": "${DATABASE_URL}"
+}

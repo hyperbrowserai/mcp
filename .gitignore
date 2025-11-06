@@ -2,3 +2,25 @@ dist/
 node_modules/
 
 .env
+.env.local
+.env.*.local
+
+# Database connection files with sensitive credentials
+postgres_connection.json
+postgres_connection.json.local
+*_connection.json
+*connection*.json
+*connection*.local
+# But allow example files
+!*connection*.example
+!*connection*.example.json
+test_db_connection.sh
+mcp-backup.sh
+mcp-restore.sh
+setup-mcp-persistence.sh
+canva-mcp-config.json
+MCP-PERSISTENCE-GUIDE.md
+
+# Security verification scripts (optional - can be committed)
+# verify-credentials-security.sh
+# remove-credentials-from-history.sh

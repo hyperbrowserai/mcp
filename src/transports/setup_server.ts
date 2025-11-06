@@ -30,6 +30,7 @@ import {
   claudeComputerUseToolParamSchemaRaw,
   crawlWebpagesToolParamSchemaRaw,
   extractStructuredDataToolParamSchemaRaw,
+  hyperAgentToolParamSchemaRaw,
   oaiCuaToolParamSchemaRaw,
   scrapeWebpageToolParamSchemaRaw,
 } from "../tools/tool-types";
@@ -46,6 +47,11 @@ import {
   claudeComputerUseToolDescription,
   claudeComputerUseToolName,
 } from "../tools/claude-computer-use";
+import {
+  hyperAgentTool,
+  hyperAgentToolDescription,
+  hyperAgentToolName,
+} from "../tools/hyper-agent";
 import {
   bingSearchTool,
   bingSearchToolDescription,
@@ -72,7 +78,6 @@ import {
   deleteProfileToolParamSchemaRaw,
   listProfilesToolParamSchemaRaw,
 } from "../tools/tool-types";
-
 
 function setupServer(server: McpServer) {
   // Existing tools
@@ -115,6 +120,13 @@ function setupServer(server: McpServer) {
   );
 
   server.tool(
+    hyperAgentToolName,
+    hyperAgentToolDescription,
+    hyperAgentToolParamSchemaRaw,
+    hyperAgentTool
+  );
+
+  server.tool(
     bingSearchToolName,
     bingSearchToolDescription,
     bingSearchToolParamSchemaRaw,
@@ -140,7 +152,6 @@ function setupServer(server: McpServer) {
     listProfilesToolParamSchemaRaw,
     listProfilesTool
   );
-
 
   server.server.setRequestHandler(ListResourcesRequestSchema, listAllResources);
   server.server.setRequestHandler(ReadResourceRequestSchema, getResource);
