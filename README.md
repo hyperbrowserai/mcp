@@ -1,129 +1,85 @@
-# Hyperbrowser MCP Server
-[![smithery badge](https://smithery.ai/badge/@hyperbrowserai/mcp)](https://smithery.ai/server/@hyperbrowserai/mcp)
+# Hyperbrowser MCP Server (Python)
 
-![Frame 5](https://github.com/user-attachments/assets/3309a367-e94b-418a-a047-1bf1ad549c0a)
+A fully server-side Model Context Protocol (MCP) implementation for Hyperbrowser. The server exposes a curated set of tools over SSE transport, handles authentication with Hyperbrowser API keys, and makes smart choices about browser automation settings so you don't have to.
 
-This is Hyperbrowser's Model Context Protocol (MCP) Server. It provides various tools to scrape, extract structured data, and crawl webpages. It also provides easy access to general purpose browser agents like OpenAI's CUA, Anthropic's Claude Computer Use, and Browser Use.
+## Features
 
-More information about the Hyperbrowser can be found [here](https://docs.hyperbrowser.ai/). The hyperbrowser API supports a superset of features present in the mcp server.
+- **SSE-only transport** built on top of `mcp`'s `FastMCP` utilities. Run it anywhere you can host a Starlette/ASGI app.
+- **Secure by default**: every call requires a valid Hyperbrowser API key (`Bearer <key>`) that is verified against `https://app.hyperbrowser.ai/api/me`.
+- **Opinionated tools** with minimal parameters:
+  - `scrape_page` – single-page scrape with Markdown/HTML/screenshots.
+  - `crawl_site` – lightweight crawler (defaults to 5 pages, main content only).
+  - `extract_structured` – schema-aware extraction with optional auto-schema generation.
+  - `browser_task` – routes your natural-language task to Browser Use, OpenAI CUA, or Claude Computer Use depending on complexity.
+- **No resources**: the server focuses entirely on live tooling.
+- **Python-first**: structured settings via `pydantic-settings`, logging with `structlog`, and a test suite built with `pytest`/`respx`.
 
-More information about the Model Context Protocol can be found [here](https://modelcontextprotocol.io/introduction).
+The tool behaviors are based on the Hyperbrowser Python SDK examples in the docs MCP server (`AsyncHyperbrowser.start_and_wait` for scrape/crawl/extract). Those snippets outline the same workflow implemented here.
 
-## Table of Contents
-
-- [Installation](#installation)
-- [Usage](#usage)
-- [Tools](#tools)
-- [Configuration](#configuration)
-- [License](#license)
-
-## Installation
-
-### Manual Installation
-To install the server, run:
+## Quick Start
 
 ```bash
-npx hyperbrowser-mcp <YOUR-HYPERBROWSER-API-KEY>
+git clone https://github.com/hyperbrowserai/mcp.git hyperbrowser-mcp
+cd hyperbrowser-mcp
+pip install .[dev]
+HYPERBROWSER_API_KEY=hb_live_123 uvicorn hyperbrowser_mcp.server:app --host 0.0.0.0 --port 8000
 ```
 
-## Running on Cursor
-Add to `~/.cursor/mcp.json` like this:
-```json
-{
-  "mcpServers": {
-    "hyperbrowser": {
-      "command": "npx",
-      "args": ["-y", "hyperbrowser-mcp"],
-      "env": {
-        "HYPERBROWSER_API_KEY": "YOUR-API-KEY"
-      }
-    }
-  }
-}
+The server automatically exposes:
+
+- `GET /sse` – Server-Sent Events stream
+- `POST /messages/` – client-to-server JSON-RPC messages (MCP standard)
+
+Provide your Hyperbrowser API key via the Authorization header:
+
+```
+Authorization: Bearer hb_live_...
 ```
 
-## Running on Windsurf
-Add to your `./codeium/windsurf/model_config.json` like this:
-```json
-{
-  "mcpServers": {
-    "hyperbrowser": {
-      "command": "npx",
-      "args": ["-y", "hyperbrowser-mcp"],
-      "env": {
-        "HYPERBROWSER_API_KEY": "YOUR-API-KEY"
-      }
-    }
-  }
-}
-```
+> **Note**: When running in Cursor, Windsurf, or any MCP-aware client, configure the server as an SSE transport pointing at the `/sse` endpoint with the same bearer token.
 
-### Development
+## Configuration
 
-For development purposes, you can run the server directly from the source code.
+Environment variables (see `hyperbrowser_mcp/config.py` for the full list):
 
-1. Clone the repository:
+| Variable | Default | Description |
+| --- | --- | --- |
+| `HYPERBROWSER_API_KEY` | — | Optional fallback key for stdio tools or internal automation. SSE clients should pass their own keys. |
+| `MCP_HOST` | `0.0.0.0` | Bind address when using the packaged CLI (`hyperbrowser-mcp serve`). |
+| `MCP_PORT` | `8000` | Port for the SSE server. |
+| `HYPERBROWSER_AUTH_ISSUER` | `https://app.hyperbrowser.ai` | OAuth issuer URL used in auth metadata. |
+| `HYPERBROWSER_RESOURCE_URL` | `https://hyperbrowser-mcp.hyperbrowser.ai` | Resource server URL advertised in auth metadata. |
+| `HB_AUTH_CACHE_SECONDS` | `300` | API-key validation cache duration. |
 
-   ```sh
-   git clone git@github.com:hyperbrowserai/mcp.git hyperbrowser-mcp
-   cd hyperbrowser-mcp
-   ```
+## Developing
 
-2. Install dependencies:
-
-   ```sh
-   npm install # or yarn install
-   npm run build
-   ```
-
-3. Run the server:
-
-   ```sh
-   node dist/server.js
-   ```
-
-## Claude Desktop app
-This is an example config for the Hyperbrowser MCP server for the Claude Desktop client.
-
-```json
-{
-  "mcpServers": {
-    "hyperbrowser": {
-      "command": "npx",
-      "args": ["--yes", "hyperbrowser-mcp"],
-      "env": {
-        "HYPERBROWSER_API_KEY": "your-api-key"
-      }
-    }
-  }
-}
-```
-
-
-## Tools
-* `scrape_webpage` - Extract formatted (markdown, screenshot etc) content from any webpage 
-* `crawl_webpages` - Navigate through multiple linked pages and extract LLM-friendly formatted content
-* `extract_structured_data` - Convert messy HTML into structured JSON
-* `search_with_bing` - Query the web and get results with Bing search
-* `browser_use_agent` - Fast, lightweight browser automation with the Browser Use agent
-* `openai_computer_use_agent` - General-purpose automation using OpenAI’s CUA model
-* `claude_computer_use_agent` - Complex browser tasks using Claude computer use
-* `create_profile` - Creates a new persistent Hyperbrowser profile.
-* `delete_profile` - Deletes an existing persistent Hyperbrowser profile.
-* `list_profiles` - Lists existing persistent Hyperbrowser profiles.
-
-### Installing via Smithery
-
-To install Hyperbrowser MCP Server for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@hyperbrowserai/mcp):
+Common tasks are wrapped in the Makefile:
 
 ```bash
-npx -y @smithery/cli install @hyperbrowserai/mcp --client claude
+make install   # pip install .[dev]
+make lint      # ruff + mypy
+make test      # pytest with coverage
+make serve     # run uvicorn hyperbrowser_mcp.server:app
 ```
 
-## Resources
+The tests rely on `respx` to stub Hyperbrowser HTTP calls and never touch the live service.
 
-The server provides the documentation about hyperbrowser through the `resources` methods. Any client which can do discovery over resources has access to it.
+## Deploying
+
+1. Build the image:
+
+   ```bash
+   docker build -t hyperbrowser-mcp .
+   ```
+
+2. Run it:
+
+   ```bash
+   docker run --rm -p 8000:8000 -e HYPERBROWSER_API_KEY=hb_live_123 hyperbrowser-mcp
+   ```
+
+3. Point your MCP client at `http://localhost:8000/sse` with `Authorization: Bearer hb_live_123`.
 
 ## License
 
-This project is licensed under the MIT License.
+MIT © Hyperbrowser.
