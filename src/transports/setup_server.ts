@@ -71,7 +71,14 @@ import {
 import {
   deleteProfileToolParamSchemaRaw,
   listProfilesToolParamSchemaRaw,
+  getDownloadsToolParamSchemaRaw,
 } from "../tools/tool-types";
+// Import get downloads tool
+import {
+  getDownloadsTool,
+  getDownloadsToolDescription,
+  getDownloadsToolName,
+} from "../tools/get-downloads";
 
 
 function setupServer(server: McpServer) {
@@ -139,6 +146,14 @@ function setupServer(server: McpServer) {
     listProfilesToolDescription,
     listProfilesToolParamSchemaRaw,
     listProfilesTool
+  );
+
+  // Register get downloads tool
+  server.tool(
+    getDownloadsToolName,
+    getDownloadsToolDescription,
+    getDownloadsToolParamSchemaRaw,
+    getDownloadsTool
   );
 
 

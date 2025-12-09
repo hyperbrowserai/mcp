@@ -1,11 +1,10 @@
-# Hyperbrowser MCP Server
-[![smithery badge](https://smithery.ai/badge/@hyperbrowserai/mcp)](https://smithery.ai/server/@hyperbrowserai/mcp)
+# HyperBrowser AI MCP Server
 
 ![Frame 5](https://github.com/user-attachments/assets/3309a367-e94b-418a-a047-1bf1ad549c0a)
 
-This is Hyperbrowser's Model Context Protocol (MCP) Server. It provides various tools to scrape, extract structured data, and crawl webpages. It also provides easy access to general purpose browser agents like OpenAI's CUA, Anthropic's Claude Computer Use, and Browser Use.
+An enhanced Model Context Protocol (MCP) Server for HyperBrowser with additional features including session file downloads. This server provides various tools to scrape, extract structured data, and crawl webpages. It also provides easy access to general purpose browser agents like OpenAI's CUA, Anthropic's Claude Computer Use, and Browser Use.
 
-More information about the Hyperbrowser can be found [here](https://docs.hyperbrowser.ai/). The hyperbrowser API supports a superset of features present in the mcp server.
+More information about HyperBrowser can be found [here](https://docs.hyperbrowser.ai/). The HyperBrowser API supports a superset of features present in the MCP server.
 
 More information about the Model Context Protocol can be found [here](https://modelcontextprotocol.io/introduction).
 
@@ -19,11 +18,16 @@ More information about the Model Context Protocol can be found [here](https://mo
 
 ## Installation
 
-### Manual Installation
-To install the server, run:
+### NPM Installation
 
+Install globally:
 ```bash
-npx hyperbrowser-mcp <YOUR-HYPERBROWSER-API-KEY>
+npm install -g hyperbrowserai-mcp-server
+```
+
+Or run directly with npx:
+```bash
+npx hyperbrowserai-mcp-server
 ```
 
 ## Running on Cursor
@@ -31,9 +35,9 @@ Add to `~/.cursor/mcp.json` like this:
 ```json
 {
   "mcpServers": {
-    "hyperbrowser": {
+    "hyperbrowserai": {
       "command": "npx",
-      "args": ["-y", "hyperbrowser-mcp"],
+      "args": ["-y", "hyperbrowserai-mcp-server"],
       "env": {
         "HYPERBROWSER_API_KEY": "YOUR-API-KEY"
       }
@@ -47,9 +51,9 @@ Add to your `./codeium/windsurf/model_config.json` like this:
 ```json
 {
   "mcpServers": {
-    "hyperbrowser": {
+    "hyperbrowserai": {
       "command": "npx",
-      "args": ["-y", "hyperbrowser-mcp"],
+      "args": ["-y", "hyperbrowserai-mcp-server"],
       "env": {
         "HYPERBROWSER_API_KEY": "YOUR-API-KEY"
       }
@@ -82,15 +86,15 @@ For development purposes, you can run the server directly from the source code.
    node dist/server.js
    ```
 
-## Claude Desktop app
-This is an example config for the Hyperbrowser MCP server for the Claude Desktop client.
+## Claude Desktop App
+This is an example config for the HyperBrowser AI MCP server for the Claude Desktop client.
 
 ```json
 {
   "mcpServers": {
-    "hyperbrowser": {
+    "hyperbrowserai": {
       "command": "npx",
-      "args": ["--yes", "hyperbrowser-mcp"],
+      "args": ["-y", "hyperbrowserai-mcp-server"],
       "env": {
         "HYPERBROWSER_API_KEY": "your-api-key"
       }
@@ -111,14 +115,16 @@ This is an example config for the Hyperbrowser MCP server for the Claude Desktop
 * `create_profile` - Creates a new persistent Hyperbrowser profile.
 * `delete_profile` - Deletes an existing persistent Hyperbrowser profile.
 * `list_profiles` - Lists existing persistent Hyperbrowser profiles.
+* `get_session_downloads` - Retrieve files downloaded during a HyperBrowser session (requires saveDownloads: true in sessionOptions)
 
-### Installing via Smithery
+## Additional Features
 
-To install Hyperbrowser MCP Server for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@hyperbrowserai/mcp):
+This enhanced version includes:
+- **Session Downloads**: Retrieve files downloaded during browser automation sessions
+- **Cross-platform compatibility**: Improved Windows support
+- **Enhanced documentation**: Comprehensive guides and examples
 
-```bash
-npx -y @smithery/cli install @hyperbrowserai/mcp --client claude
-```
+See [DOWNLOADS_FEATURE.md](./DOWNLOADS_FEATURE.md) for detailed information about the session downloads feature.
 
 ## Resources
 

@@ -26,6 +26,12 @@ export const sessionOptionsSchema = z
       .describe(
         "Whether to automatically close the accept cookies popup. Recommended false."
       ),
+    saveDownloads: z
+      .boolean()
+      .default(false)
+      .describe(
+        "Whether to save files downloaded during the session. When enabled, downloaded files can be retrieved via the get_session_downloads tool after the session completes. Recommended false unless you need to retrieve downloaded files."
+      ),
     profile: z
       .object({
         id: z
@@ -288,4 +294,27 @@ export const listProfilesToolParamSchema = z.object(
 
 export type listProfilesToolParamSchemaType = z.infer<
   typeof listProfilesToolParamSchema
+>;
+
+// Get Session Downloads
+
+export const getDownloadsToolParamSchemaRaw = {
+  sessionId: z.string().describe("The ID of the HyperBrowser session to retrieve downloads from"),
+  downloadZip: z
+    .boolean()
+    .optional()
+    .default(false)
+    .describe("If true, downloads the zip file containing all session downloads to the local filesystem"),
+  outputPath: z
+    .string()
+    .optional()
+    .describe("Required if downloadZip is true. Local file path where the downloads zip file should be saved (e.g., './downloads/session-files.zip')"),
+};
+
+export const getDownloadsToolParamSchema = z.object(
+  getDownloadsToolParamSchemaRaw
+);
+
+export type getDownloadsToolParamSchemaType = z.infer<
+  typeof getDownloadsToolParamSchema
 >;
