@@ -80,30 +80,55 @@ function setupServer(server: McpServer) {
     scrapeWebpageToolName,
     scrapeWebpageToolDescription,
     scrapeWebpageToolParamSchemaRaw,
+    {
+      title: "Scrape Webpage",
+      readOnlyHint: true,
+      openWorldHint: true,
+    },
     scrapeWebpageTool
   );
   server.tool(
     crawlWebpagesToolName,
     crawlWebpagesToolDescription,
     crawlWebpagesToolParamSchemaRaw,
+    {
+      title: "Crawl Webpages",
+      readOnlyHint: true,
+      openWorldHint: true,
+    },
     crawlWebpagesTool
   );
   server.tool(
     extractStructuredDataToolName,
     extractStructuredDataToolDescription,
     extractStructuredDataToolParamSchemaRaw,
+    {
+      title: "Extract Structured Data",
+      readOnlyHint: true,
+      openWorldHint: true,
+    },
     extractStructuredDataTool
   );
   server.tool(
     browserUseToolName,
     browserUseToolDescription,
     browserUseToolParamSchemaRaw,
+    {
+      title: "Browser Use Agent",
+      destructiveHint: true,
+      openWorldHint: true,
+    },
     browserUseTool
   );
   server.tool(
     oaiCuaToolName,
     oaiCuaToolDescription,
     oaiCuaToolParamSchemaRaw,
+    {
+      title: "OpenAI Computer Use Agent",
+      destructiveHint: true,
+      openWorldHint: true,
+    },
     oaiCuaTool
   );
 
@@ -111,6 +136,11 @@ function setupServer(server: McpServer) {
     claudeComputerUseToolName,
     claudeComputerUseToolDescription,
     claudeComputerUseToolParamSchemaRaw,
+    {
+      title: "Claude Computer Use Agent",
+      destructiveHint: true,
+      openWorldHint: true,
+    },
     claudeComputerUseTool
   );
 
@@ -118,6 +148,11 @@ function setupServer(server: McpServer) {
     bingSearchToolName,
     bingSearchToolDescription,
     bingSearchToolParamSchemaRaw,
+    {
+      title: "Search with Bing",
+      readOnlyHint: true,
+      openWorldHint: true,
+    },
     bingSearchTool
   );
 
@@ -126,18 +161,30 @@ function setupServer(server: McpServer) {
     createProfileToolName,
     createProfileToolDescription,
     {}, // createProfileToolParamSchemaRaw is just an empty object
+    {
+      title: "Create Profile",
+      destructiveHint: false,
+    },
     createProfileTool
   );
   server.tool(
     deleteProfileToolName,
     deleteProfileToolDescription,
     deleteProfileToolParamSchemaRaw,
+    {
+      title: "Delete Profile",
+      destructiveHint: true,
+    },
     deleteProfileTool
   );
   server.tool(
     listProfilesToolName,
     listProfilesToolDescription,
     listProfilesToolParamSchemaRaw,
+    {
+      title: "List Profiles",
+      readOnlyHint: true,
+    },
     listProfilesTool
   );
 
