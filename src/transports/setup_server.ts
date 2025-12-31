@@ -163,7 +163,7 @@ function setupServer(server: McpServer) {
     {}, // createProfileToolParamSchemaRaw is just an empty object
     {
       title: "Create Profile",
-      destructiveHint: true,
+      destructiveHint: false,
     },
     createProfileTool
   );
