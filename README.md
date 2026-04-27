@@ -1,5 +1,6 @@
 # Hyperbrowser MCP Server
 [![smithery badge](https://smithery.ai/badge/@hyperbrowserai/mcp)](https://smithery.ai/server/@hyperbrowserai/mcp)
+[![Add to Kiro](https://kiro.dev/images/add-to-kiro.svg)](https://kiro.dev/launch/mcp/add?name=hyperbrowser&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22hyperbrowser-mcp%22%5D%2C%22env%22%3A%7B%22HYPERBROWSER_API_KEY%22%3A%22your-api-key%22%7D%7D)
 
 ![Frame 5](https://github.com/user-attachments/assets/3309a367-e94b-418a-a047-1bf1ad549c0a)
 
@@ -58,6 +59,24 @@ Add to your `./codeium/windsurf/model_config.json` like this:
 }
 ```
 
+## Running on Kiro
+
+To install in [Kiro](https://kiro.dev), click the badge at the top of this README or manually add the following to your Kiro MCP config file (`.kiro/settings/mcp.json` or `~/.kiro/settings/mcp.json`):
+
+```json
+{
+  "mcpServers": {
+    "hyperbrowser": {
+      "command": "npx",
+      "args": ["-y", "hyperbrowser-mcp"],
+      "env": {
+        "HYPERBROWSER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
 ### Development
 
 For development purposes, you can run the server directly from the source code.
@@ -106,7 +125,7 @@ This is an example config for the Hyperbrowser MCP server for the Claude Desktop
 * `extract_structured_data` - Convert messy HTML into structured JSON
 * `search_with_bing` - Query the web and get results with Bing search
 * `browser_use_agent` - Fast, lightweight browser automation with the Browser Use agent
-* `openai_computer_use_agent` - General-purpose automation using OpenAI’s CUA model
+* `openai_computer_use_agent` - General-purpose automation using OpenAI's CUA model
 * `claude_computer_use_agent` - Complex browser tasks using Claude computer use
 * `create_profile` - Creates a new persistent Hyperbrowser profile.
 * `delete_profile` - Deletes an existing persistent Hyperbrowser profile.
