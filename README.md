@@ -90,7 +90,7 @@ This is an example config for the Hyperbrowser MCP server for the Claude Desktop
   "mcpServers": {
     "hyperbrowser": {
       "command": "npx",
-      "args": ["--yes", "hyperbrowser-mcp"],
+      "args": ["hyperbrowser-mcp"],
       "env": {
         "HYPERBROWSER_API_KEY": "your-api-key"
       }
