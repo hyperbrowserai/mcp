@@ -1,5 +1,5 @@
 # Hyperbrowser MCP Server
-[![smithery badge](https://smithery.ai/badge/@hyperbrowserai/mcp)](https://smithery.ai/server/@hyperbrowserai/mcp)
+[![Listed on Skillselion](https://skillselion.com/badge/mcp/tool/io.github.hyperbrowserai/mcp.svg)](https://skillselion.com/mcp/tool/io.github.hyperbrowserai/mcp)
 
 ![Frame 5](https://github.com/user-attachments/assets/3309a367-e94b-418a-a047-1bf1ad549c0a)
 
